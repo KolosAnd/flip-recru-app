@@ -10,23 +10,10 @@ import Pagination from "../../components/Pagination/Pagination";
 import Loader from "../../components/Loader/Loader";
 
 const Planets: NextPage = ({data}: any) => {
-
-  // const [cards, setCards] = useState([]);
-  const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
-  const [limit, setLimit] = useState(10);
-
-  useEffect( () => {
-    const totalCount = data.count;
-    setTotalPages(getPageCount(totalCount, limit));
-  }, [])
- 
-
-
-  useEffect(() => {
-      // fetchCards(page,limit)
-  }, [page, limit]);
-
+  const limit = 10;
+  const totalCount = data.count;
+  const totalPages = getPageCount(totalCount, limit);
 
   const changePage = (page:number) => {
       setPage(page);
@@ -34,31 +21,28 @@ const Planets: NextPage = ({data}: any) => {
 
   return (
      <div className="App">
-            <Header/>
-            <CardList cards={data.results}/>
-            {/* <Pagination
-                page={page}
-                changePage={changePage}
-                totalPages={totalPages}
-            /> */}
-
-        </div>
+        <Header/>
+        <CardList cards={data.results}/>
+        <Pagination
+          page={page}
+          totalPages={totalPages}
+        />
+      </div>
     )
-}
-
-function getPlanetId (card:any) {
-  let cardLinkIndex = card.url.slice(30);
-  cardLinkIndex = cardLinkIndex.slice(0, -1);
-  return cardLinkIndex;
 }
 
 export default Planets;
 
-export async function getStaticProps(context: any) {
+export async function getStaticProps({ query }: any) {
+  const { page = 1 } = query || {};
+
   const agent = new https.Agent({
     rejectUnauthorized: false,
    });
-  const result: any = await axios.get("https://swapi.dev/api/planets", {httpsAgent: agent});
+  const result: any = await axios.get("https://swapi.dev/api/planets", {httpsAgent: agent,
+    params: {
+        page
+    }});
 
   if (!result) {
     return {
