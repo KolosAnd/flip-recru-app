@@ -2,23 +2,48 @@ import type { NextPage } from 'next';
 import Link from 'next/link'
 import axios from "axios";
 import https from "https";
+import { useEffect, useState } from 'react';
+import {getPageCount} from "../../utils/pages";
+import Header from "../../components/Header/Header";
+import CardList from "../../components/CardList/CardList";
+import Pagination from "../../components/Pagination/Pagination";
+import Loader from "../../components/Loader/Loader";
 
-const Planets: NextPage = ({items}: any) => {
+const Planets: NextPage = ({data}: any) => {
 
+  // const [cards, setCards] = useState([]);
+  const [totalPages, setTotalPages] = useState(0);
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(10);
+
+  useEffect( () => {
+    const totalCount = data.count;
+    setTotalPages(getPageCount(totalCount, limit));
+  }, [])
  
 
-  return <div>
-    <h1>Planets list page</h1>
-    {!!items?.length &&
-    <ul>
-      {items.map((item: any) => (<li key={item.name}>
-          <Link href={`/planets/${getPlanetId(item)}`} >
-            <a>{item.name}</a>
-          </Link>
-        </li>))}
-    </ul>
-    }
-  </div>
+
+  useEffect(() => {
+      // fetchCards(page,limit)
+  }, [page, limit]);
+
+
+  const changePage = (page:number) => {
+      setPage(page);
+  }
+
+  return (
+     <div className="App">
+            <Header/>
+            <CardList cards={data.results}/>
+            {/* <Pagination
+                page={page}
+                changePage={changePage}
+                totalPages={totalPages}
+            /> */}
+
+        </div>
+    )
 }
 
 function getPlanetId (card:any) {
@@ -43,6 +68,6 @@ export async function getStaticProps(context: any) {
   const { data } = result;
 
   return {
-    props: { items: data.results }, // will be passed to the page component as props
+    props: { data }, // will be passed to the page component as props
   }
 }

@@ -3,15 +3,28 @@ import {useRouter } from 'next/router';
 import Link from 'next/link'
 import axios from "axios";
 import https from "https";
+import Header from "../../components/Header/Header";
+import OneCardInfo from "../../components/OneCardInfo/OneCardInfo";
 
 const Planet: NextPage = ({data}: any) => {
   const router = useRouter();
   const { id } = router.query;
   return (<>
-    <h1>Planet info page {data.name}</h1>
-    <Link href="/planets">
-      <a>back to the list</a>
-    </Link>
+     <>
+            <Header/>
+            <section className="one_planet_page">
+                <div className="container">
+                    <div className="one_planet_wrap">
+                        <h1 className="one_planet_title">Information about planet - {data.name}</h1>
+                      
+                        {/* {isCardLoading &&
+                            <div className="loader"><Loader/></div>
+                        } */}
+                        <OneCardInfo cardInfo={data}/>
+                    </div>
+                </div>
+            </section>
+        </>
   </>)
 }
 
