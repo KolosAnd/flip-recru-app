@@ -1,0 +1,49 @@
+.planet_card {
+    width: 21%;
+    margin: 0 2% 15px;
+    padding: 15px;
+    background: #2c5f91;
+    cursor: pointer;
+    transition: 0.3s;
+    border-radius: 5px;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+@media screen and (max-width: 1200px) {
+    .planet_card {
+        width: 29%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .planet_card {
+        width: 46%;
+    }
+}
+.planet_card:hover {
+    background: #2075be;
+}
+
+.planet_card_name {
+    margin: 0;
+    text-decoration: none;
+    color: #fff;
+    font-size: 18px;
+    line-height: 20px;
+}
+
+@media screen and (max-width: 1200px) {
+    .planet_card_name {
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .planet_card_name {
+        font-size: 12px;
+        line-height: 14px;
+    }
+}
