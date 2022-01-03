@@ -23,8 +23,8 @@ function OneCardInfo (cardInfo) {
                         <span className={mainClass.card_info_name}>{key} : </span>
                         <ol className={mainClass.card_info_list}>
                             {
-                                value?.map(oneItem => <li>
-                                    <a target='_blank' href={oneItem}>{oneItem}</a>
+                                value?.map(oneItem => <li key={key}>
+                                    <a target='_blank' rel="noreferrer" href={oneItem}>{oneItem}</a>
                                 </li>)
                             }
                         </ol>
