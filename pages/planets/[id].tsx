@@ -9,7 +9,7 @@ const Planet: NextPage = ({data}: any) => {
   return (<>
     <Head>
       <title>{data.name}</title>
-      <meta name="description" content={`Star Wars Planet ${data.title} information`} />
+      <meta name="description" content={`Star Wars Planet ${data.name} information`} />
     </Head>
     <Header/>
     <section className="one_planet_page">
