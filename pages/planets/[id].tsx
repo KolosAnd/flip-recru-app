@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Head from 'next/head';
 import axios from "axios";
 import https from "https";
 import Header from "../../components/Header/Header";
@@ -6,6 +7,10 @@ import OneCardInfo from "../../components/OneCardInfo/OneCardInfo";
 
 const Planet: NextPage = ({data}: any) => {
   return (<>
+    <Head>
+      <title>{data.name}</title>
+      <meta name="description" content={`Star Wars Planet ${data.title} information`} />
+    </Head>
     <Header/>
     <section className="one_planet_page">
       <div className="container">

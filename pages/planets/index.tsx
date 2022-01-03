@@ -1,4 +1,5 @@
 import type { NextPage } from 'next';
+import Head from 'next/head';
 import axios from "axios";
 import https from "https";
 import {getPageCount} from "../../utils/pages";
@@ -14,6 +15,10 @@ const Planets: NextPage = ({props}: any) => {
 
   return (
      <div className="App">
+        <Head>
+          <title>Star wars Planets list page</title>
+          <meta name="description" content="Star wars Planets list page" />
+        </Head>
         <Header/>
         <CardList cards={cards}/>
         <Pagination
