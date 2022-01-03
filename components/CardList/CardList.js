@@ -14,7 +14,7 @@ const CardList = ({cards}) => {
                     {
                         cards &&  cards.length > 0 ?
                             cards.map( (card) =>
-                            <PlanetCard card={card} key={card.id}/>
+                            <PlanetCard card={card} key={card.name}/>
                         )
                         : <h2>Planets not found</h2>
                     }
