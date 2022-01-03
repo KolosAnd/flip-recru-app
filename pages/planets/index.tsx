@@ -15,7 +15,7 @@ const Planets: NextPage = ({props}: any) => {
   return (
      <div className="App">
         <Header/>
-        <CardList cards={results}/>
+        <CardList cards={cards}/>
         <Pagination
           totalPages={totalPages}
         />
@@ -26,16 +26,16 @@ const Planets: NextPage = ({props}: any) => {
 export default Planets;
 
 Planets.getInitialProps = async (context) => {
-  const { page } = context.query || 1; //if page empty we request the first page
+  const { page } = context.query || 1;
   const agent = new https.Agent({
     rejectUnauthorized: false,
    });
-   
   const result: any = await axios.get("https://swapi.dev/api/planets", {httpsAgent: agent,
-  params: {
-      page
-  }});
+    params: {
+        page
+    }});
   const { data } = result;
+
   return { 
       props: { data }
   };
