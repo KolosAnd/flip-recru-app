@@ -42,7 +42,8 @@ Planets.getInitialProps = async (context) => {
   const { data } = result;
 
   return { 
-      props: { data }
+      props: { data },
+      revalidate: 86400 // one day
   };
 }
 
