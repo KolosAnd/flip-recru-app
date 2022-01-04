@@ -4,6 +4,8 @@ import axios from "axios";
 import https from "https";
 import Header from "../../components/Header/Header";
 import OneCardInfo from "../../components/OneCardInfo/OneCardInfo";
+import {getPlanets, getPlanetById} from "../../utils/api"
+
 
 const Planet: NextPage = ({data}: any) => {
   return (<>
@@ -26,10 +28,7 @@ const Planet: NextPage = ({data}: any) => {
 export default Planet;
 
 export async function getStaticPaths() {
-  const agent = new https.Agent({
-    rejectUnauthorized: false,
-   });
-  const result = await axios.get("https://swapi.dev/api/planets", {httpsAgent: agent});
+  const result: any = await getPlanets();
   if (!result) {
     return {
       notFound: true,
@@ -53,10 +52,7 @@ export async function getStaticPaths() {
 
 export async function getStaticProps({params}: any) {
   const { id } = params;
-  const agent = new https.Agent({
-    rejectUnauthorized: false,
-   });
-  const result: any = await axios.get(`https://swapi.dev/api/planets/${id}`, {httpsAgent: agent});
+  const result: any = await getPlanetById(id);
   if (!result) {
     return {
       notFound: true,

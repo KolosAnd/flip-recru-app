@@ -1,11 +1,10 @@
 import type { NextPage } from 'next';
 import Head from 'next/head';
-import axios from "axios";
-import https from "https";
 import {getPageCount} from "../../utils/pages";
 import Header from "../../components/Header/Header";
 import CardList from "../../components/CardList/CardList";
 import Pagination from "../../components/Pagination/Pagination";
+import {getPlanets} from "../../utils/api";
 
 const Planets: NextPage = ({props}: any) => {
   const { results, count } = props.data || {};
@@ -31,14 +30,8 @@ const Planets: NextPage = ({props}: any) => {
 export default Planets;
 
 Planets.getInitialProps = async (context) => {
-  const { page } = context.query || 1;
-  const agent = new https.Agent({
-    rejectUnauthorized: false,
-   });
-  const result: any = await axios.get("https://swapi.dev/api/planets", {httpsAgent: agent,
-    params: {
-        page
-    }});
+  const page = context?.query?.page || 1;
+  const result: any = await getPlanets(+page);
   const { data } = result;
 
   return { 
