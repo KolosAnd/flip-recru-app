@@ -65,6 +65,6 @@ export async function getStaticProps({params}: any) {
   const { data } = result;
   return {
     props: { data },
-    revalidate: 86400 // one day
+    revalidate: 3600 // one hour
   }
 }
