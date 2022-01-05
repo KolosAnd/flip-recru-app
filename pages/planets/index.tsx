@@ -19,8 +19,9 @@ const Planets: NextPage = ({props}: any) => {
           <meta name="description" content="Star wars Planets list page" />
         </Head>
         <Header/>
-        <CardList cards={cards}/>
+        <CardList cards={cards} title={'Star Wars Planets'}/>
         <Pagination
+            url={'planets'}
           totalPages={totalPages}
         />
       </div>

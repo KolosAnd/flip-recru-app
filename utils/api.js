@@ -18,3 +18,16 @@ export const getPlanets = (page = 1,limit = 10) =>
 
 export const getPlanetById = (id) => 
   axios.get(`${BASE_API_URL}planets/${id}`, { httpsAgent: agent });
+
+
+export const getPeople = (page = 1,limit = 10) =>
+    axios.get(`${BASE_API_URL}people`, {
+        httpsAgent: agent,
+        params: {
+            page: page,
+            limit: limit
+        }
+    });
+
+export const getPersonByID = (id) =>
+    axios.get(`${BASE_API_URL}people/${id}`, { httpsAgent: agent });

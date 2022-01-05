@@ -1,7 +1,5 @@
 import type { NextPage } from 'next'
 import Head from 'next/head';
-import axios from "axios";
-import https from "https";
 import Header from "../../components/Header/Header";
 import OneCardInfo from "../../components/OneCardInfo/OneCardInfo";
 import {getPlanets, getPlanetById} from "../../utils/api"
