@@ -3,13 +3,20 @@ import Head from 'next/head';
 import Header from "../../components/Header/Header";
 import OneCardInfo from "../../components/OneCardInfo/OneCardInfo";
 import {getPeople, getPersonByID} from "../../utils/api"
+import {GetStaticProps} from "next";
+import {IPeople, IPerson} from "../../types/People";
+import {FC} from "react";
+import {AxiosResponse} from "axios";
 
+interface PersonItem {
+    data: IPerson
+}
 
-const Person: NextPage = ({data}: any) => {
+const Person: FC<PersonItem> = ({data}) => {
     return (<>
         <Head>
             <title>{data.name}</title>
-            <meta name="description" content={`Star Wars Person ${data.name} information`} />
+            <meta name="description" content={`Star Wars Person ${data.name} information`}/>
         </Head>
         <Header/>
         <section className="one_planet_page">
@@ -26,15 +33,15 @@ const Person: NextPage = ({data}: any) => {
 export default Person;
 
 export async function getStaticPaths() {
-    const result: any = await getPeople();
+    const result: AxiosResponse<IPeople> = await getPeople();
     if (!result) {
         return {
             notFound: true,
         }
     }
-    const { count } = result.data;
+    const { count }  = result.data;
     const paths = []
-    for (let i = 1; i <= count; i++) {
+    for (let i = 1; i <= parseInt(count); i++) {
         const dynamicPageParams = {
             params: {
                 id: i.toString()
@@ -48,9 +55,9 @@ export async function getStaticPaths() {
     }
 }
 
-export async function getStaticProps({params}: any) {
+export const getStaticProps:GetStaticProps = async ({params}: any) => {
     const { id } = params;
-    const result: any = await getPersonByID(id);
+    const result:  AxiosResponse<PersonItem> = await getPersonByID(id);
     if (!result) {
         return {
             notFound: true,
